@@ -1,0 +1,33 @@
+Display a “random” number between 1 and 100 that change on every push on button 1.
+
+int nombre ; 
+char txt; 
+void main (void)
+{
+initIO();
+initLCD();
+
+initTimer1(12500, T1_PS_1_8);
+
+initTimer2(625, T2_PS_1_8);
+timer1InterruptEnable(); 
+timer2InterruptEnable(); 
+
+while (1)
+	{
+	sprintf(txt, "%3d", nombre); 
+	writeLine(txt, 0); 
+	}
+}
+
+void timer1Interrupt (void) 
+{
+	if (getButton1())
+	{
+	nombre = rand ()%100 + 1;
+	}
+}
+
+void timer2Interrupt (void) 
+{}
+
