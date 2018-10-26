@@ -31,6 +31,10 @@ if (getButton1() && !buttonRelease)
   buttonRelease= 1; 
 }
  
+if (!getButton1())
+{
+  buttonRelease = 0; 
+}
  if (getButton2()) 
  {
  	count = 0; 
