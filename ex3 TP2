@@ -1,0 +1,40 @@
+Write a program that counts the pushes on button1. Display the count on the LEDs and on the screen. 
+Button 2 will reset the count. Caution, single push must be counted once.
+
+1. faire un compteur avec getButton et Button release 
+2. réinitialiser si button 2 
+
+int count; 
+int buttonRelease = 1; 
+char txt;
+
+void main (void) 
+
+{
+initIO();
+initLCD(); 
+initTimer1 (12500, T1_PS_1_8);
+initTimer2 (12500, T2_PS_1_8);
+timer1InterruptEnable(); 
+timer2InterruptEnable(); 
+
+sprintf(txt, "%4d", count);
+writeLine(txt, 0);
+setLeds(count);
+}
+
+void timer1Interrupt (void) 
+{ 
+if (getButton1() && !buttonRelease) 
+{
+  count++; 
+  buttonRelease= 1; 
+}
+ 
+ if (getButton2()) 
+ {
+ 	count = 0; 
+ }
+}
+void timer2Interrupt (void) 
+{}
