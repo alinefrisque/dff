@@ -18,9 +18,12 @@ initTimer2 (12500, T2_PS_1_8);
 timer1InterruptEnable(); 
 timer2InterruptEnable(); 
 
-sprintf(txt, "%4d", count);
-writeLine(txt, 0);
-setLeds(count);
+while(1)
+	{
+  sprintf(txt, "%4d", count);
+  writeLine(txt, 0);
+	setLeds(count);
+	}
 }
 
 void timer1Interrupt (void) 
