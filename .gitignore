@@ -1,52 +1,43 @@
-# Prerequisites
-*.d
+exo 2 TP2 
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+//Write a function that returns the squared value of variable passed as argument. 
+//Adjust the value with the rotary button and display the result on the screen. For instance, “4^2 = 16”.
 
-# Linker output
-*.ilk
-*.map
-*.exp
+étapes : 
+1. prendre le nombre du potentiomètre et le mettre comme variable 
+2. mettre ce chiffre au carré 
+3. le transformer en caractère (sprintf) 
+4. afficher sur l'écran 
 
-# Precompiled Headers
-*.gch
-*.pch
+unsigned short abc; 
+int d; 
+char txt, results; 
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+void exo2TP2 (void)
+{
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
+intiIO(); 
+initAnalogInputs(1);
+initLCD(); 
 
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
+initTimer1(12500, T1_PS_1_8); // 100 interrupts per second
+timer1InterruptEnable();
 
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+while(1)
+{
+  writeLine(txt,0);
+  writeLine(results, 1);
+}
+
+}
+
+void timer1Interrupt(void)
+{
+  abc = readABC(0);
+  d = abc*abc ;
+  sptintf(txt, "%4d  *  %4d", adc, adc); 
+  sprintf(results,  = %7d, d);
+
+}
+
