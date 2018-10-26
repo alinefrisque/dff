@@ -1,0 +1,46 @@
+Write a program that makes the LEDs blink exactly ten times after we release a button.
+
+0000
+1111
+1111
+1111
+0000
+
+char leds = 0b0000;
+int buttonReleased = 1; 
+int i = 0;
+
+void main (void) 
+{
+	initIO(); 
+	initTimer1(12500, T1_PS_1_8);
+	initTimer2(625, T2_PS_1_16);
+	
+	timer1InterruptEnable();
+	timer2InterruptEnable(); 
+	while(1)
+	{
+		setLeds(leds); 
+	}
+}
+
+void timer1Interrupt (void) 
+{
+	if ( (getButton1() || getButton2()) &&  buttonReleased)
+	{
+        buttonReleased = 0;
+	}
+	if(!getButton2() && !getButton2() && !buttonReleased) 
+	{	
+		buttonReleased = 1; 
+		for( i = 0; i<20; i++)
+		{
+			leds = leds^0b1111;
+		}
+	}
+    i = 0;
+}
+void timer2Interrupt (void)
+{
+
+}
