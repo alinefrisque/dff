@@ -1,1 +1,77 @@
+Implémenter un système de code d'accès fonctionnant de la façon suivante:
+	Une des 4 leds symbolise l'état du système ("verrouillé" ou "ouvert") 
+	Le système est initialisé dans l'état "verrouillé"
+	L'utilisateur introduit une séquence de 8 pressions sur les boutons 1 et 2
+	La séquence s'affiche à l'écran (par exemple "12111211")
+	Si la séquence est correcte le système passe en mode "ouvert"
 
+char leds = 0b0001;
+int btn1released ; 
+int btn2released ;
+char code [8];
+int count ; 
+int i ; 
+void main (void)
+{
+	initIO(); 
+	initLCD(); 
+	initTimer1(12500, T1_PS_1_8);
+	initTimer2(12500, T2_PS_1_8);
+	timer1InterruptEnable();
+	timer2InterruptEnable(); 
+	
+	while(1)
+	{
+	setLeds(leds);
+	writeLine(code, 0);
+	}
+	
+	
+}
+
+void timer1Interrupt (void)
+{
+	
+	if ( getButton1() && btn1released) 
+	{
+		count++;
+		i = 1; 
+		btn1released = 0;
+	}
+	
+	if (!getButton1())
+	{
+		btn1released = 1; 
+	}
+	
+	if ( getButton2() && btn2released) 
+	{
+		count++;
+		i = 2; 
+		btn2released = 0;
+	}
+	
+	if (!getButton2())
+	{
+		btn2released = 1; 
+	}
+	if (count< 9) 
+	{
+		code[count] = i;
+		count = 0;
+	}
+	
+		
+	if (code == 12111211 ) 
+	{
+		leds = 0b0000;
+	}
+	else 
+	{
+		leds = 0b0001;
+	}
+}
+
+void timer2Interrupt (void) 
+{
+}
