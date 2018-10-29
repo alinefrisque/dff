@@ -30,7 +30,7 @@ timer2InterruptEnable();
 
 while(1)
 {
-  sprintf(txt, "%4d    *     %4d", adc, adc); 
+  sprintf(txt, "%4d    *  %4d", adc, adc); 
  sprintf(results," = %7d          ", d);
  writeLine(txt,0);
 
