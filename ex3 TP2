@@ -4,9 +4,9 @@ Button 2 will reset the count. Caution, single push must be counted once.
 1. faire un compteur avec getButton et Button release 
 2. réinitialiser si button 2 
 
-int count; 
+int count = 0; 
 int buttonRelease = 1; 
-char txt;
+char txt [16] ;
 
 void main (void) 
 
@@ -20,7 +20,7 @@ timer2InterruptEnable();
 
 while(1)
 	{
-  sprintf(txt, "%4d", count);
+    sprintf(txt, "%4d", count);
   writeLine(txt, 0);
 	setLeds(count);
 	}
@@ -40,7 +40,7 @@ if (!getButton1())
 }
  if (getButton2()) 
  {
- 	count = 0; 
+ 	count = 0b0000; 
  }
 }
 void timer2Interrupt (void) 
