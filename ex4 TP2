@@ -1,7 +1,7 @@
 Display a “random” number between 1 and 100 that change on every push on button 1.
 
 int nombre ; 
-char txt; 
+char txt [16]; 
 void main (void)
 {
 initIO();
