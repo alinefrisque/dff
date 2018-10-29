@@ -28,15 +28,15 @@ while(1)
 
 void timer1Interrupt (void) 
 { 
-if (getButton1() && !buttonRelease) 
+if (getButton1() && buttonRelease) 
 {
   count++; 
-  buttonRelease= 1; 
+  buttonRelease= 0; 
 }
  
 if (!getButton1())
 {
-  buttonRelease = 0; 
+  buttonRelease = 1; 
 }
  if (getButton2()) 
  {
