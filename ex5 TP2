@@ -13,46 +13,92 @@ char leds = 0b0000;
 int button1Released = 1; 
 int button2Released = 1; 
 
+char leds = 0b0000;
+
+int button1Released = 1; 
+
+int button2Released = 1; 
+
+int count = 0; 
+
+
+
 void main (void) 
+
 {
+
      initIO();
+
     initTimer1(12500, T1_PS_1_8);
+
     initTimer2(12500, T2_PS_1_8);
+
     timer1InterruptEnable();
+
     timer2InterruptEnable();
+
     
+
     while(1)
+
         {
+
 			setLeds(leds); 
+
         }
+
 }
+
+
 
 void timer1Interrupt (void)
 
-{
-    leds^= 0b0011;
-	if (getButton1() && !button1Released )
+
+{  
+       count ++;
+    
+    
+    if (count>= 51)
+    
+    {
+        count = 0; 
+        leds = leds^0b0011;
+    }
+       if (getButton1() && button1Released )
+
   	{
-  	leds = leds|0b1000;
-	button1Released = 1; 
+        leds = leds^0b0100;
+
+        button1Released = 0; 
   	}	
+
 	if (!getButton1())
+
 	{
-		button1Released = 0;
+		button1Released = 1;
 	}
-	if (getButton2() && !button2Released) 
+
+	if (getButton2() && button2Released) 
 	{
-		leds = leds|0b0100 ; 
-		button2Released = 1; 
+		leds = leds^0b1000 ; 
+
+		button2Released = 0; 
 	}
 	if(!getButton2()) 
+
 	{
-		button2Released = 0 ; 
+
+		button2Released = 1 ; 
 	}
 }
+
+
 
 void timer2Interrupt (void) 
 
+
+
 {
+
+    
 }
- 
