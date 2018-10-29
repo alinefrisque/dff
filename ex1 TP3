@@ -44,3 +44,61 @@ void timer2Interrupt (void)
 {
 
 }
+
+
+char leds = 0b0000;
+int buttonReleased = 1; 
+count = 0;
+int x ; 
+
+void main (void) 
+{
+    initIO(); 
+    initTimer1(1250000, T1_PS_1_8);
+    initTimer2(625, T2_PS_1_16);
+    timer1InterruptEnable();
+    timer2InterruptEnable(); 
+    
+	while(1)
+	{
+        setLeds(leds); 
+	}
+}
+
+void timer1Interrupt (void) 
+{
+   
+	if ( getButton1() && buttonReleased )
+        
+    {
+        buttonReleased = 0;
+        x = 0 ;
+    }
+       
+    if (!getButton1())
+    {
+        buttonReleased = 1;
+    }
+   for(x =0; x<20; x++)
+        
+        {
+       
+        leds = leds^0b1111;
+        }
+        
+     
+	}
+
+	
+
+    
+
+
+
+void timer2Interrupt (void)
+
+{
+
+
+
+}
