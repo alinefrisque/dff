@@ -1,35 +1,41 @@
 Réalisez un chronomètre (précis au dixième de seconde)
 Réalisez une horloge réglable avec les boutons 1 et 2
 
-int cs=0, s=0, m=0, h=0; 
-char strA[16];
+int cs=0,s=0, m=0, h=0, count = 0; 
+
+char strA[20];
+
 int btn1released = 1;
+
 void main (void) 
+
 {
+
 	initIO(); 
 	initLCD(); 
-	initTimer1(390625, T1_PS_1_256);
-	initTimer2(390625, T2_PS_1_256);
+	initTimer1(12500, T1_PS_1_8);
+	initTimer2(12500, T2_PS_1_8);
 	timer1InterruptEnable();
 	timer2InterruptEnable(); 
-	
+
 	while (1)
 	{
-		writeLine(strA, 0);
+		sprintf(strA, "%3d:%3d:%3d",h,m,s);
+        writeLine(strA, 0);
 	}
 }
 
-void timer1Interrupt (void) 
-{
 
-	if (cs<100)
-	{
-		cs++; 
-	}
-	else
-	{
-		s++;
-		cs=0;
+void timer1Interrupt (void) 
+
+{
+    count++ ;
+    if (count>100)
+    {
+        
+        count = 0;
+        s++;
+	
 	}
 	if(s>59) 
 	{
@@ -41,26 +47,38 @@ void timer1Interrupt (void)
         m=0;
         h++;
 	}
+  
 
-    sprintf(strA, " %2d :  %2d : %2d: %2d", h, m, s,cs );
 		
-	if ((getButton1()|| getButton2) && btn1released) 
+	if ((getButton1()|| getButton2()) && btn1released) 
+
 	   {
-		 cs= 0;
+		
 		 s = 0; 
 		 m = 0; 
 		 h = 0; 
-		 btn1released = 0;
+         btn1released = 0 ;
+	
 		 }
+
 	if (!getButton1()&& !getButton2())
+
 		{
 			btn1released = 1; 
 		}
+
 	
+
 	
+
+
 
 }
 
+
+
 void timer2Interrupt (void) 
+
 {
+
 }
