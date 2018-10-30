@@ -9,9 +9,6 @@ Then display the state of button1 and 2 on the two other LEDs (without disturbin
 ^0011
 0000
 
-char leds = 0b0000;
-int button1Released = 1; 
-int button2Released = 1; 
 
 char leds = 0b0000;
 
