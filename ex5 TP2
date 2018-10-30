@@ -1,4 +1,4 @@
-5. Make the two right LEDs blink at a frequency of about 1Hz. 
+OK 5. Make the two right LEDs blink at a frequency of about 1Hz. 
 Then display the state of button1 and 2 on the two other LEDs (without disturbing the blinking).
 
 
