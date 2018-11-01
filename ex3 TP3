@@ -2,29 +2,42 @@ Make the LEDs fade in and fade out as a function of time. Control the speed with
 
 char leds =0b0000; 
 unsigned short adc; 
+int count = 1024;
+char nb [16];
 
 void main (void) 
 {
 	initIO(); 
 	initAnalogInputs(1);
-	initTimer1 (adc, T1_PS_1_8);
-	initTimer2 (625, T2_PS_1_16); 
+    initLCD();
+	initTimer1 (1250, T1_PS_1_8);
+    initTimer1 (12500, T2_PS_1_8);
 	timer1InterruptEnable();
-	timer2InterruptEnable(); 
-	
-	while(1) 
-	{setLeds(leds);}
+    timer2InterruptEnable();
+
+    while(1)
+    {
+        sprintf(nb, "%7d", adc);
+        writeLine(nb, 1);
+    }
 	
 }
 
 void timer1Interrupt (void)
 {
-	while(1)
-    {adc = readADC; 
-	leds = leds^1111; }
-	
+    
+	count--;
+    adc = readADC(0);
+    
+    
+    if (count=adc)
+        
+    {
+   	leds = leds^0b1111; 
+    count = 1024; 
+    setLeds(leds);
+    }
 }
 
 void timer2Interrupt (void)
-{
-}
+{}
