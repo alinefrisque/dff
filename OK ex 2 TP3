@@ -1,0 +1,69 @@
+ PROBLEME . Implement KITT light on the 4 LEDs. Hint: http://knight-rider.wifeo.com/images/KITT.gif
+
+0000
+1000
+0100
+0010
+0001
+0010
+0100
+1000
+
+char leds = 0b1000;
+int count = 0; 
+int i=0; 
+int j = 3; 
+
+void main (void) 
+
+{
+
+	initIO();
+	initTimer1(12500, T1_PS_1_8);
+	initTimer2(625, T2_PS_1_16);
+	timer1InterruptEnable();
+	timer2InterruptEnable(); 
+
+	while(1) 
+	{
+        
+	}
+}
+
+void timer1Interrupt (void) 
+{
+    setLeds(leds);
+    count++; 
+    
+    if (count >30)
+    {
+        count = 0; 
+        
+        if (i<3)
+        
+        {
+            
+            leds=leds/2;
+            setLeds(leds);
+            i++;
+            j--;
+            
+        }
+        else 
+            if (j<3)
+        {
+            
+            leds = leds*2; 
+            setLeds(leds);
+            j++;
+            }
+            else
+            {i = 0;}
+        
+    }
+    
+}
+void timer2Interrupt (void) 
+{ 
+
+}
