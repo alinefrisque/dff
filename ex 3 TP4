@@ -4,9 +4,6 @@ Implémenter un système de code d'accès fonctionnant de la façon suivante:
 	L'utilisateur introduit une séquence de 8 pressions sur les boutons 1 et 2
 	La séquence s'affiche à l'écran (par exemple "12111211")
 	Si la séquence est correcte le système passe en mode "ouvert"
-
-
-
 char leds = 0b0001;
 int btn1released ; 
 int btn2released ;
@@ -15,9 +12,7 @@ int count = -1;
 char i ; 
 char txt [16];
 char rep [7] = {'1', '2', '1', '1','1', '2', '1', '1'};
-
 void main (void)
-
 {
 	initIO(); 
 	initLCD(); 
@@ -29,8 +24,7 @@ void main (void)
 	while(1)
 	{
 	setLeds(leds);
-   	
-	}
+   	}
 }
 
 void timer1Interrupt (void)
@@ -56,13 +50,10 @@ void timer1Interrupt (void)
 		btn2released = 1; 
 	}
 	if (count< 8 ) 
-	{
-       
+	{ 
 		code[count] = i;
-        writeLine(code, 1);
-		
+       		writeLine(code, 1);
 	}
-
 	/*if (code = rep ) 
 	{
 		leds = 0b0000;
